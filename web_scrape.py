@@ -9,12 +9,27 @@ webpage = urlopen(req).read()
 
 page_soup = soup(webpage, "html.parser")
 
-title = page_soup.find("title")
+div = page_soup.find('div', class_= 'result-row normal-result row')
 
-# print(title)
+# name = div.find('span', itemprop="name")
 
-containers = page_soup.find("div", "result-row normal-result row")[0]
-print(containers)
+print(div.prettify())
+# print(name)
+
+# description
+# <div class="result-desc hidden-sm-down" dir="ltr" itemprop="description" lang="en">
+
+#phone number
+# <div class="result-phone hidden-xs-down">
+
+#certification
+#<span itemprop="jobTitle">
+
+#link to full profile  
+# <a class="btn btn-default btn-sm" data-event-action="ClickResultsProfileBtn" data-event-label="Result1"
+
+# containers = page_soup.find("div", "result-row normal-result row")[0]
+# print(containers)
 
 # for container in containers:
 #     print(container)
