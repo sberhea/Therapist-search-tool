@@ -9,24 +9,43 @@ webpage = urlopen(req).read()
 
 page_soup = soup(webpage, "html.parser")
 
+"""Get name"""
 div = page_soup.find('div', class_= 'result-row normal-result row')
 
-# name = div.find('span', itemprop="name")
+name = div.find('span', itemprop="name")
 
-print(div.prettify())
-# print(name)
+name.get_text()
 
-# description
-# <div class="result-desc hidden-sm-down" dir="ltr" itemprop="description" lang="en">
+"""Get description
+# <div class="result-desc hidden-sm-down" dir="ltr" itemprop="description" lang="en">"""
 
-#phone number
-# <div class="result-phone hidden-xs-down">
+description = page_soup.find('div', class_ = 'result-desc hidden-sm-down')
+description.get_text()
 
-#certification
-#<span itemprop="jobTitle">
+"""Get phone number
+        <div class="result-phone hidden-xs-down">"""
 
-#link to full profile  
-# <a class="btn btn-default btn-sm" data-event-action="ClickResultsProfileBtn" data-event-label="Result1"
+phone_num = page_soup.find('a', class_= 'btn btn-info btn-sm btn-block tr-result-phone')
+# print(description.prettify)
+
+phone_num.get_text()
+
+"""Get title
+        Located in <span itemprop="jobTitle"""
+
+title = page_soup.find('span', itemprop='jobTitle')
+print(title)
+
+"""Get link to full profile  
+    Located in <a class="btn btn-default btn-sm"""
+
+full_profile = page_soup.find('a', class_ = 'btn btn-default btn-sm')
+full_profile.get('href')
+
+"""Get picture"""
+
+picture = page_soup.find('img', class_= 'result-photo')
+picture.get('src')
 
 # containers = page_soup.find("div", "result-row normal-result row")[0]
 # print(containers)
