@@ -1,6 +1,6 @@
 """CRUD operations."""
 
-from model import db, User, Movie, Rating, connect_to_db
+from model import db, User, Therapist, Bookmark, Insurance, connect_to_db
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -20,25 +20,26 @@ def create_user(email, password):
 
     return user
 
-def create_movie(title, overview, release_date, poster_path):
-    """Create and return a new movie."""
+def create_therapist(name, title, phonenum, insurance, location):
+    """Create and return a new therapist."""
 
-    movie = Movie(title=title,
-                  overview=overview,
-                  release_date=release_date,
-                  poster_path=poster_path)
+    therapist = Therapist(name = name,
+                title=title,
+                  phonenum=phonenum,
+                  insurance=insurance,
+                  location=location)
 
-    db.session.add(movie)
+    db.session.add(therapist)
     db.session.commit()
 
     return movie
 
-def create_rating(user, movie, score):
+def create_bookmark(user, therapist, score):
     """Create and return a new rating."""
 
-    rating = Rating(user=user, movie=movie, score=score)
+    bookmark = Bookmark(user=user, therapist=therapist)
 
-    db.session.add(rating)
+    db.session.add(bookmark)
     db.session.commit()
 
-    return rating
+    return bookmark
