@@ -36,8 +36,12 @@ class Therapist(db.Model):
     last_name = db.Column(db.String)
     specialty = db.Column(db.String)
     address = db.Column(db.Text)
-    longitude = db.Column(db.float8)
-    latitude = db.Column(db.float8)
+    longitude = db.Column(db.Numeric(precision=20, 
+                        scale=15), 
+                        nullable=False)
+    latitude = db.Column(db.Numeric(precision=20, 
+                        scale=15), 
+                        nullable=False)
     therapist_email = db.Column(db.String)
     phone_number  = db.Column(db.String)
     sliding_scale = db.Column(db.Boolean)

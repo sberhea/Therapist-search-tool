@@ -13,6 +13,13 @@ app = Flask(__name__)
 def home_page():
     """This is the home page"""
 
+@app.route('/login')
+    """Where the user logs in"""
+
+@app.route('/profile')
+def user_profile():
+    """This is the user profile"""
+
 @app.route('/search')
 def search_tool():
     """Search bar, filter and Google Maps displayed"""
@@ -21,9 +28,6 @@ def search_tool():
 def one_therapist():
     """Display one therapist after the user clicks on a listing"""
 
-@app.route('/profile')
-def user_profile():
-    """This is the user profile"""
 
 
 if __name__ == '__main__':
