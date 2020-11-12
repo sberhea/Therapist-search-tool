@@ -10,7 +10,7 @@ from datetime import datetime
 class User(db.Model):
     """A user."""
 
-    __tablename__ = 'users'
+    __tablename__ = 'user'
 
     user_id = db.Column(db.Integer,
                         autoincrement=True,
@@ -32,19 +32,21 @@ class Therapist(db.Model):
     therapist_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True)
-    first_name = db.Column(db.String)
-    last_name = db.Column(db.String)
-    specialty = db.Column(db.String)
-    address = db.Column(db.Text)
+    name = db.Column(db.String)
+    # specialty = db.Column(db.String)
+    # address = db.Column(db.Text)
+    pic = db.Column(db.String)
+    description = db.Column(db.Text)
     longitude = db.Column(db.Numeric(precision=20, 
                         scale=15), 
                         nullable=False)
     latitude = db.Column(db.Numeric(precision=20, 
                         scale=15), 
                         nullable=False)
-    therapist_email = db.Column(db.String)
-    phone_number  = db.Column(db.String)
-    sliding_scale = db.Column(db.Boolean)
+    # therapist_email = db.Column(db.String)
+    phonenum  = db.Column(db.String)
+    fp = db.Column(db.String)
+    sliding_scale = db.Column(db.String)
 
     # insurance = a list of Insurance objects
 
@@ -60,13 +62,13 @@ class Insurance(db.Model):
                             primary_key=True)
     company_name = db.Column(db.String)
     therapist_id = db.Column(db.Integer, db.ForeignKey('therapist.therapist_id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
         
     user = db.relationship('User', backref='insurance')
     therapist = db.relationship('Therapist', backref='insurance')
  
-    # def __repr__(self):
-    #     return f'<Rating rating_id={self.rating_id} score={self.score}>'
+    def __repr__(self):
+        return f'<Insurance insurance_id={self.insurance_id} company_name={self.company_name}>'
 
 class Bookmark(db.Model):
     """A list of therapists the user bookmarked"""
@@ -75,11 +77,13 @@ class Bookmark(db.Model):
     bookmark_id = db.Column(db.Integer,
                             autoincrement=True,
                             primary_key=True)
+    therapist_id = db.Column(db.Integer, db.ForeignKey('therapist.therapist_id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
     
     user = db.relationship('User', backref='bookmark')
     therapist = db.relationship('Therapist', backref='bookmark')
 
-def connect_to_db(flask_app, db_uri='postgresql:///ratings', echo=True):
+def connect_to_db(flask_app, db_uri='postgresql:///therapist', echo=True):
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     flask_app.config['SQLALCHEMY_ECHO'] = echo
     flask_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

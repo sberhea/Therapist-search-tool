@@ -14,6 +14,7 @@ def home_page():
     """This is the home page"""
 
 @app.route('/login')
+def login():
     """Where the user logs in"""
 
 @app.route('/profile')
