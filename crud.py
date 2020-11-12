@@ -37,6 +37,9 @@ def create_therapist(name, pic, description, phonenum, fp, latitude, longitude, 
 
     return therapist
 
+def get_therapist(name, pic, description, phonenum, fp, latitude, longitude, sliding_scale):
+    return Therapist.query.all()
+
 def create_bookmark(user, therapist, score):
     """Create and return a new rating."""
 
@@ -46,3 +49,4 @@ def create_bookmark(user, therapist, score):
     db.session.commit()
 
     return bookmark
+
