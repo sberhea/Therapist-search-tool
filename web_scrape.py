@@ -61,6 +61,6 @@ for i in page_soup.find_all('div', {'class': 'result-row normal-result row'}):
 
     data.append(therapists)
 
-with open("therapists.json", "w") as outfile:  
+with open("therapists2.json", "w") as outfile:  
     json.dump(data, outfile) 
 
