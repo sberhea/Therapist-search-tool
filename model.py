@@ -69,7 +69,7 @@ class Insurance(db.Model):
     #     return f'<Rating rating_id={self.rating_id} score={self.score}>'
 
 class Bookmark(db.Model):
-"""A list of therapists the user bookmarked"""
+    """A list of therapists the user bookmarked"""
     __tablename__ = 'bookmark'
 
     bookmark_id = db.Column(db.Integer,

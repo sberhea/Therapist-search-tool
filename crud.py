@@ -20,19 +20,22 @@ def create_user(email, password):
 
     return user
 
-def create_therapist(name, title, phonenum, insurance, location):
+def create_therapist(name, pic, description, phonenum, fp, latitude, longitude, sliding_scale):
     """Create and return a new therapist."""
 
     therapist = Therapist(name = name,
-                title=title,
-                  phonenum=phonenum,
-                  insurance=insurance,
-                  location=location)
+                    pic=pic,
+                    description=description,
+                    phonenum=phonenum,
+                    fp=fp,
+                    latitude=latitude,
+                    longitude=longitude,
+                    sliding_scale=sliding_scale,)
 
     db.session.add(therapist)
     db.session.commit()
 
-    return movie
+    return therapist
 
 def create_bookmark(user, therapist, score):
     """Create and return a new rating."""

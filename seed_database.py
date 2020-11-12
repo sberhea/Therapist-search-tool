@@ -22,13 +22,21 @@ with open('data/therapists.json') as f:
 # Create therapists, store them in list 
 therapists_in_db = []
 for therapist in therapist_data:
-    name, phonenum, insurance, location = (therapsts['name'],
-                                    therapists['phonenum']
-                                    therapists['insurance']
-                                    therapists['location'])
+    name, pic, description, phonenum, fp, latitude, longitude, sliding_scale = (therapsts['name'],
+                                    therapists['pic'],
+                                    therapists['description'],
+                                    therapists['phonenum'],
+                                    therapists['fp'],
+                                    therapists['latitude'],
+                                    therapists['longitude'],
+                                    therapists['sliding_scale'],)
 
     db_therapists = crud.create_therapist(name,
+                                 pic,
+                                 description,
                                  phonenum,
-                                 insurance,
-                                 location)
-    movies_in_db.append(db_movie)
+                                 fp,
+                                 latitude,
+                                 longitude,
+                                 sliding_scale)
+    therapists_in_db.append(db_therapists)
