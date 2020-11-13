@@ -46,7 +46,7 @@ def get_therapist():
     return Therapist.query.all()
      
 
-def therapist_details():
+def therapist_details(therapist_id):
     return Therapist.query.get(therapist_id)
      
 

@@ -55,12 +55,13 @@ def all_therapists():
     return render_template('all_therapists.html', therapist=therapist)
 
 @app.route('/therapists/<therapist_id>')
-def one_therapist():
+def one_therapist(therapist_id):
     """Display one therapist after the user clicks on a listing"""
     
-    therapist_details = crud.therapist_details()
+    therapist_details = crud.therapist_details(therapist_id)
 
-    return render_template('therapist_details.html', therapist=therapist)
+    return render_template('therapist_details.html', 
+                            therapist_id = therapist_id)
 
 
 if __name__ == '__main__':

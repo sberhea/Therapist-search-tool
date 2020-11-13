@@ -2,6 +2,17 @@
 {% block title %}All Therapists{% endblock %}
 {% block body %}
   {% for t in therapist %}
-    <ul>{{t.name}} </ul>
+    <li>
+      <a href="/therapists/{{ t.therapist_id }}">
+      {{ t.name }} </a>
+    </li>
+    <li>
+      <a href="{{ t.fp }}">Full profile</a>
+    </li>
+      <img src = "{{ t.pic }}">
+    <li>
+      {{t.description}}
+    </li>
+      </br>
   {% endfor %}
 {% endblock %}
