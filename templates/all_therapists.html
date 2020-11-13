@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}All Therapists{% endblock %}
-{% for t in therapist %}
-  <p>{{ t }}</p>
-{% endfor %}
 {% block body %}
+  {% for t in therapist %}
+    <ul>{{t.name}} </ul>
+  {% endfor %}
 {% endblock %}
