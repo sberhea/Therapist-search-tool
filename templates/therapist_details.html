@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Hello{% endblock %}
+<li>
+    {{ t.name }}
+</li>
+{% block body %}
+  {% for t in therapist %}
+    <li>
+      {{ t.name }}
+    </li>
+      <img src = "{{ t.pic }}">
+    <li>
+      {{ t.description }}
+    </li>
+      <a href="{{ t.fp }}">Full Psychology Today profile</a>
+      <br></br>
+  {% endfor %}
+{% endblock %}
