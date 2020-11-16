@@ -20,6 +20,10 @@ def create_user(email, password):
 
     return user
 
+def login_user():
+    username = User.query.get(email)
+    password = User.query.get(password) 
+
 def get_user_by_email(email):
     
     return User.query.filter(User.email == email).first()
@@ -63,4 +67,8 @@ def create_bookmark(user, therapist, star):
     db.session.commit()
 
     return bookmark
+
+def get_bookmark_by_userid(user_id):
+    
+    return Bookmark.query.all(user_id)
 

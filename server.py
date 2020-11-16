@@ -35,13 +35,15 @@ def create_registration():
 
         return redirect('/')
 
-@app.route('/login', methods=['POST']) #method not allowed
+@app.route('/login') #method not allowed
 def login():
     """Log in user."""
-    username = info.get('username')
-    password = info.get('password') 
-    user = User.objects(name=username,
+    username = User.query.get(email)
+    password = User.query.get(password) 
+    
+    user = User.get(email=email,
                         password=password).first()
+    
     if user:
         login_user(user)
         return render_template('user_profile.html', user=user)
@@ -55,7 +57,10 @@ def user_profile(user_id):
     """This is the user profile"""
     user = crud.get_user_by_id(user_id)
 
-    return render_template('user_profile.html', user=user)
+    session['user.id'] = session.get('user.id', user.id)
+
+    return render_template('user_profile.html', user=user, user_id=user_id)
+
 
 @app.route('/search')
 def search_tool():
