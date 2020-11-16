@@ -6,13 +6,11 @@
       <a href="/therapists/{{ t.therapist_id }}">
       {{ t.name }} </a>
     </li>
-    <li>
-      <a href="{{ t.fp }}">Full profile</a>
-    </li>
       <img src = "{{ t.pic }}">
     <li>
       {{t.description}}
-    </li>
-      </br>
+    <!-- </li>
+      <a href="{{ t.fp }}">Full profile</a> -->
+      <br></br>
   {% endfor %}
 {% endblock %}

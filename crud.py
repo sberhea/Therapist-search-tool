@@ -24,6 +24,10 @@ def get_user_by_email(email):
     
     return User.query.filter(User.email == email).first()
 
+def get_user_by_id(user_id):
+
+    return User.query.get(user_id)
+
 
 def create_therapist(name, pic, description, phonenum, fp, latitude, longitude, sliding_scale):
     """Create and return a new therapist."""
@@ -50,10 +54,10 @@ def therapist_details(therapist_id):
     return Therapist.query.get(therapist_id)
      
 
-def create_bookmark(user, therapist, score):
+def create_bookmark(user, therapist, star):
     """Create and return a new bookmark."""
 
-    bookmark = Bookmark(user=user, therapist=therapist)
+    bookmark = Bookmark(user=user, therapist=therapist, star=star)
 
     db.session.add(bookmark)
     db.session.commit()

@@ -35,12 +35,27 @@ def create_registration():
 
         return redirect('/')
 
-# @app.route('/login', methods=['POST'])
-# def login():
+@app.route('/login', methods=['POST']) #method not allowed
+def login():
+    """Log in user."""
+    username = info.get('username')
+    password = info.get('password') 
+    user = User.objects(name=username,
+                        password=password).first()
+    if user:
+        login_user(user)
+        return render_template('user_profile.html', user=user)
+    else:
+        flash('Username or password incorrect')
+        return render_template('/login')
 
-@app.route('/profile')
-def user_profile():
+
+@app.route('/profile/<user_id>')
+def user_profile(user_id):
     """This is the user profile"""
+    user = crud.get_user_by_id(user_id)
+
+    return render_template('user_profile.html', user=user)
 
 @app.route('/search')
 def search_tool():
@@ -61,7 +76,7 @@ def one_therapist(therapist_id):
     therapist_details = crud.therapist_details(therapist_id)
 
     return render_template('therapist_details.html', 
-                            therapist_id = therapist_id)
+                            therapist_details=therapist_details)
 
 
 if __name__ == '__main__':
