@@ -38,29 +38,40 @@ def create_registration():
 @app.route('/login') #method not allowed
 def login():
     """Log in user."""
-    username = User.query.get(email)
-    password = User.query.get(password) 
-    
-    user = User.get(email=email,
-                        password=password).first()
+
+    # session['user.id'] = session.get('user.id', user.id)
+
+    return render_template('login.html')
+
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    user = crud.verify_user_login(email, password)
     
     if user:
-        login_user(user)
-        return render_template('user_profile.html', user=user)
+        session['user_id'] = user.user_id
+        return redirect('/profile')
     else:
         flash('Username or password incorrect')
-        return render_template('/login')
+        return redirect('/login')
+    
 
-
-@app.route('/profile/<user_id>')
+@app.route('/profile', methods=['POST'])
 def user_profile(user_id):
     """This is the user profile"""
-    user = crud.get_user_by_id(user_id)
 
-    session['user.id'] = session.get('user.id', user.id)
+    user = crud.get_user_by_id(user_id)
+    
+    session['user_id'] = user.user_id
+    # session.get('user_id', user_id)
 
     return render_template('user_profile.html', user=user, user_id=user_id)
 
+@app.route('/bookmark/<user_id>', methods=['POST', 'GET'])
+def add_bookmark(user_id):
+    user = crud.get_user_by_id('user_id')
+
+    session['user_id'] = session.get('user_id', user_id)
 
 @app.route('/search')
 def search_tool():
@@ -78,10 +89,10 @@ def all_therapists():
 def one_therapist(therapist_id):
     """Display one therapist after the user clicks on a listing"""
     
-    therapist_details = crud.therapist_details(therapist_id)
+    therapist = crud.therapist_details(therapist_id)
 
     return render_template('therapist_details.html', 
-                            therapist_details=therapist_details)
+                            therapist=therapist)
 
 
 if __name__ == '__main__':

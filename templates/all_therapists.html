@@ -1,18 +1,23 @@
 {% extends 'base.html' %}
 {% block title %}All Therapists{% endblock %}
 {% block body %}
-  
   {% for t in therapist %}
-  <p><a href="/therapists/{{ t.therapist_id }}">
-  <p>{{ t.name }} </a></p>
-  <p><img src = "{{ t.pic }}"></p>
-  <p>{{t.description}}</p>
-  <p>
-    <form action="/profile" method="get"></form>
-      <select name="bookmark" id="add_therapist">
-       <option value="added">Bookmark</option>
-  </p>
-    <br></br>
+    <p>
+      <a href="/therapists/{{ t.therapist_id }}">
+        {{ t.name }} 
+      </a>
+    </p>
+    <p><img src = "{{ t.pic }}"></p>
+    <p>{{t.description}}</p>
+    
+    <p>
+      <form action="/profile" method="get"></form>
+        <select>
+          <option>Bookmark</option>
+          <option>---</option>
+        </select>
+    </p>
+      <br></br>
   {% endfor %}
 
 {% endblock %}

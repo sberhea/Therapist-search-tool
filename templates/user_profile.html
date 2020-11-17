@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}My Profile{% endblock %}
 {% block body %}
-<h2>Bookmarks</h2>
-<li></li>
+    <h3>Hello, {{user.name}}.</h3>
+    <p><a href="/bookmark">Check out your bookmarks</a></p>
+    <button>Sign Out</button>
+
 {% endblock %}

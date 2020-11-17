@@ -1,4 +1,4 @@
-"""Models for movie ratings app."""
+"""Models for therapist app."""
 
 from flask_sqlalchemy import SQLAlchemy
 
