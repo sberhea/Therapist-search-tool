@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}My Profile{% endblock %}
+{% block body %}
+    <h2>Bookmarks</h2>
+    {% for b in bookmarks %}
+    <li>{{therapist.name}}</li>
+    <li><a href='/therapists/{{therapist_id}}'>See more</a></li>
+    {% endfor %}
+
+{% endblock %}
