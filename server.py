@@ -57,12 +57,13 @@ def login():
     
 
 @app.route('/profile', methods=['POST'])
-def user_profile(user_id):
+def user_profile():
     """This is the user profile"""
-
+    
+    user_id = session.get('user_id')
     user = crud.get_user_by_id(user_id)
     
-    session['user_id'] = user.user_id
+    # session['user_id'] = user.user_id
     # session.get('user_id', user_id)
 
     return render_template('user_profile.html', user=user, user_id=user_id)
