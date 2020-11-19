@@ -61,10 +61,10 @@ def therapist_details(therapist_id):
     return Therapist.query.get(therapist_id)
      
 
-def create_bookmark(user, therapist, star):
+def create_bookmark(user, therapist):
     """Create and return a new bookmark."""
 
-    bookmark = Bookmark(user=user, therapist=therapist, star=star)
+    bookmark = Bookmark(user=user, therapist=therapist)
 
     db.session.add(bookmark)
     db.session.commit()
@@ -72,6 +72,12 @@ def create_bookmark(user, therapist, star):
     return bookmark
 
 def get_bookmark_by_userid(user_id):
+    """Find bookmarks associated with a user id"""
+    therapist_id = db.session.query(Bookmarks.therapist_id).filter_by(user_id=user_id)
+    bookmarks = []
+
+    for t in therapist_id:
+        bookmarks.append(db.session.query(Therapist.name).filter_by(therapist_id=therapist.therapist_id).all())
     
-    return Bookmark.query.all(user_id)
+    return bookmarks
 

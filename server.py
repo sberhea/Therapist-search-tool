@@ -68,12 +68,35 @@ def user_profile():
 
     return render_template('user_profile.html', user=user, user_id=user_id)
 
-@app.route('/bookmark/<user_id>', methods=['POST', 'GET'])
-def add_bookmark(user_id):
+@app.route('/bookmark', methods=['POST','GET'] )
+def add_bookmark(therapist_id):
+    
+    user_id = session.get('user_id')
     user = crud.get_user_by_id('user_id')
+    
+    therapist = crud.get_therapist(therapist_id)
+    
+    if user:
+        bookmark = crud.create_bookmark(user, therapist)
+        new_bookmark = crud.get_bookmark_by_userid(user_id, therapist_id)
+        flash('Bookmark added')
+        
+        return redirect('/therapists', bookmark=bookmark, new_bookmark=new_bookmark)
 
-    session['user_id'] = session.get('user_id', user_id)
-
+@app.route('/my-bookmarks')
+def show_bookmarks():
+    
+    user_id = session.get('user_id')
+    
+    if user_id:
+        user = crud.get_user_by_id(user_id)
+        bookmarks = crud.get_bookmark_by_userid(user_id)
+        
+        return render_template('bookmark.html', user=user, bookmarks=bookmarks)
+    else:
+        flash('You have no bookmarks')
+        return redirect('/')
+        
 @app.route('/search')
 def search_tool():
     """Search bar, filter and Google Maps displayed"""
