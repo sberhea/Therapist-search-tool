@@ -48,8 +48,9 @@ def login():
 
     user = crud.verify_user_login(email, password)
     
-    if user:
+    if user and user.password == password:
         session['user_id'] = user.user_id
+        # flash(f'Login successful! {email}')
         return redirect('/profile')
     else:
         flash('Username or password incorrect')
@@ -59,29 +60,30 @@ def login():
 @app.route('/profile', methods=['POST'])
 def user_profile():
     """This is the user profile"""
-    
+
     user_id = session.get('user_id')
     user = crud.get_user_by_id(user_id)
     
     # session['user_id'] = user.user_id
     # session.get('user_id', user_id)
 
+
     return render_template('user_profile.html', user=user, user_id=user_id)
 
-@app.route('/bookmark', methods=['POST','GET'] )
+@app.route('/bookmark', methods=['POST', 'GET'])
 def add_bookmark(therapist_id):
     
     user_id = session.get('user_id')
     user = crud.get_user_by_id('user_id')
     
-    therapist = crud.get_therapist(therapist_id)
+    therapist = crud.therapist_details('therapist_id')
     
     if user:
         bookmark = crud.create_bookmark(user, therapist)
         new_bookmark = crud.get_bookmark_by_userid(user_id, therapist_id)
         flash('Bookmark added')
         
-        return redirect('/therapists', bookmark=bookmark, new_bookmark=new_bookmark)
+        return redirect('/therapists')
 
 @app.route('/my-bookmarks')
 def show_bookmarks():

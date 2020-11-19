@@ -80,8 +80,8 @@ class Bookmark(db.Model):
     therapist_id = db.Column(db.Integer, db.ForeignKey('therapist.therapist_id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
     
-    user = db.relationship('User', backref='bookmark')
-    therapist = db.relationship('Therapist', backref='bookmark')
+    user = db.relationship('User', backref='bookmarks') # look nto the secondary syntax (see data modeling lecture, BookGenres)
+    therapist = db.relationship('Therapist', backref='bookmarks')
 
 def connect_to_db(flask_app, db_uri='postgresql:///therapist', echo=True):
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri

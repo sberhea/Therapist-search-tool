@@ -71,13 +71,15 @@ def create_bookmark(user, therapist):
 
     return bookmark
 
-def get_bookmark_by_userid(user_id):
+def get_bookmark_by_userid(user_id): #renamethis func if you wan it to both return all bookma=rked theapists AND add a bookmarked traoist
     """Find bookmarks associated with a user id"""
-    therapist_id = db.session.query(Bookmarks.therapist_id).filter_by(user_id=user_id)
+    therapist_list = db.session.query(Bookmarks.therapist_id).filter_by(user_id=user_id).all()
     bookmarks = []
+    user = User.query.get(user_id)
+    user.therapists.append(this_would_be_aTherapist_object) #if you have t object, this will create the relationship
 
-    for t in therapist_id:
-        bookmarks.append(db.session.query(Therapist.name).filter_by(therapist_id=therapist.therapist_id).all())
+    for t in therapist_list:
+        bookmarks.append(db.session.query(Therapist.name).filter_by(therapist_id=t.therapist_id).all())
     
     return bookmarks
 
