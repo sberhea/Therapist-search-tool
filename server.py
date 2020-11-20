@@ -56,6 +56,15 @@ def login():
         flash('Username or password incorrect')
         return redirect('/login')
     
+@app.route('/logout')
+def logout_user():
+    
+    user_id = session.get('user_id')
+    user = crud.get_user_by_id(user_id)
+
+    if user:
+        del session['user_id']
+        return redirect('/')
 
 @app.route('/profile', methods=['POST'])
 def user_profile():
@@ -70,7 +79,7 @@ def user_profile():
 
     return render_template('user_profile.html', user=user, user_id=user_id)
 
-@app.route('/bookmark', methods=['POST', 'GET'])
+@app.route('/bookmark/<therapist_id>', methods=['POST', 'GET'])
 def add_bookmark(therapist_id):
     
     user_id = session.get('user_id')
@@ -79,11 +88,13 @@ def add_bookmark(therapist_id):
     therapist = crud.therapist_details('therapist_id')
     
     if user:
-        bookmark = crud.create_bookmark(user, therapist)
-        new_bookmark = crud.get_bookmark_by_userid(user_id, therapist_id)
+        bookmark = crud.create_user_bookmark(user, therapist_id)
         flash('Bookmark added')
-        
+        return redirect('/therapists', user=user, therapist_id=therapist_id)
+    else:
+        flash('Cannot bookmark therapist')
         return redirect('/therapists')
+    
 
 @app.route('/my-bookmarks')
 def show_bookmarks():
@@ -92,7 +103,7 @@ def show_bookmarks():
     
     if user_id:
         user = crud.get_user_by_id(user_id)
-        bookmarks = crud.get_bookmark_by_userid(user_id)
+        bookmarks = crud.get_bookmark_list(user_id)
         
         return render_template('bookmark.html', user=user, bookmarks=bookmarks)
     else:
