@@ -61,17 +61,21 @@ def therapist_details(therapist_id):
     return Therapist.query.get(therapist_id)
      
 
-def create_bookmark(user, therapist):
+def create_bookmark(user_id, therapist_id):
     """Create and return a new bookmark."""
 
     #Isn't this just taking in user and therapist object? Do I want it to take in user_id and therapist_id?
 
-    bookmark = Bookmark(user=user, therapist=therapist)
+    bookmark = Bookmark(user_id=user_id, therapist_id=therapist_id)
 
     db.session.add(bookmark)
     db.session.commit()
 
     return bookmark
+
+def get_bookmark_byid(bookmark_id):
+    
+    return Bookmark.query.get(bookmark_id)
 
 def get_bookmark_list(user_id):
     """Pull all bookmarks associated with a user id"""
@@ -85,9 +89,14 @@ def get_bookmark_list(user_id):
     # user_bookmark = bookmark.filter(user_id=user_id)
 
     # #Gets one bookmark by bookmark id
+    bookmark_list = []
+    user_bookmark = Bookmark.query.filter(User.user_id == user_id).all() #TypeError: Incompatible collection type: Therapist is not list-like
 
-    return Bookmark.query.filter(User.user_id == user_id).all() #TypeError: Incompatible collection type: Therapist is not list-like
-
+    for bookmark in user_bookmark:
+        therapist = Therapist.query.filter(Therapist.therapist_id = bookmark.therapist_id.all())
+        bookmark_list.append(therapist)
+    
+    return bookmark_list
 
 
 

@@ -50,9 +50,9 @@ class Therapist(db.Model):
 
     # Bookmark = list of bookmarks. One_bookmark = one individual bookmark. 
 
-    bookmark = db.relationship("Bookmark",
-                             secondary="one_bookmark",
-                             backref="therapist")
+    # bookmark = db.relationship("Bookmark",
+    #                         #  secondary="one_bookmark",
+    #                          backref="therapist")
 
 class Insurance(db.Model):
 
@@ -84,22 +84,22 @@ class Bookmark(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
     
     user = db.relationship('User', backref='bookmarks') # look nto the secondary syntax (see data modeling lecture, BookGenres)
-    # therapist = db.relationship('Therapist', backref='bookmarks')
+    therapist = db.relationship('Therapist', backref='bookmarks')
 
-class OneBookmark(db.Model):
-    """One bookmarked therapist"""
+# class OneBookmark(db.Model):
+#     """One bookmarked therapist"""
     
-    __tablename__ = 'one_bookmark'
+#     __tablename__ = 'one_bookmark'
 
-    one_bookmark_id = db.Column(db.Integer,
-                            autoincrement=True,
-                            primary_key=True)
-    therapist_id = db.Column(db.Integer, 
-                            db.ForeignKey('therapist.therapist_id'), 
-                            nullable=False)
-    bookmark_id = db.Column(db.Integer, 
-                            db.ForeignKey('bookmark.bookmark_id'), 
-                            nullable=False)
+#     one_bookmark_id = db.Column(db.Integer,
+#                             autoincrement=True,
+#                             primary_key=True)
+#     therapist_id = db.Column(db.Integer, 
+#                             db.ForeignKey('therapist.therapist_id'), 
+#                             nullable=False)
+#     bookmark_id = db.Column(db.Integer, 
+#                             db.ForeignKey('bookmark.bookmark_id'), 
+#                             nullable=False)
     
 
 def connect_to_db(flask_app, db_uri='postgresql:///therapist', echo=True):
