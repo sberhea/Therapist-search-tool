@@ -35,13 +35,16 @@ def create_registration():
 
         return redirect('/')
 
-@app.route('/login') #method not allowed
+@app.route('/login')
 def login():
+
+    return render_template('login.html')
+
+@app.route('/login') #method not allowed
+def login_user():
     """Log in user."""
 
     # session['user.id'] = session.get('user.id', user.id)
-
-    return render_template('login.html')
 
     email = request.form.get('email')
     password = request.form.get('password')
@@ -88,13 +91,13 @@ def add_bookmark(therapist_id):
     user_id = session.get('user_id')
     user = crud.get_user_by_id(user_id) #uncommented quotes
     
-    therapist = crud.therapist_details('therapist_id')
-    print(therapist.therapist_id)
+    therapist = crud.therapist_details(therapist_id)
+    print("**************", therapist.therapist_id)
     
     if user:
-        bookmark = crud.create_user_bookmark(user, therapist_id)
+        bookmark = crud.create_user_bookmark(user, therapist)
         flash('Bookmark added')
-        return redirect('/therapists', user=user, therapist_id=therapist_id)
+        return redirect('/therapists', user=user, therapist=therapist)
     else:
         flash('Cannot bookmark therapist')
         return redirect('/therapists')

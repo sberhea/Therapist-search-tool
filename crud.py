@@ -63,12 +63,12 @@ def therapist_details(therapist_id):
     return Therapist.query.get(therapist_id)
      
 
-def create_user_bookmark(user_id, therapist_id):
+def create_user_bookmark(user, therapist):
     """Create and return a new bookmark."""
 
     #Isn't this just taking in user and therapist object? Do I want it to take in user_id and therapist_id?
 
-    user_bookmark = Bookmark(user_id=user_id, therapist_id=therapist_id)
+    user_bookmark = Bookmark(user=user, therapist=therapist)
 
     db.session.add(user_bookmark)
     db.session.commit()

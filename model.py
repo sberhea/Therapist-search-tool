@@ -21,8 +21,8 @@ class User(db.Model):
     password = db.Column(db.String)
 
 
-    # def __repr__(self):
-    #     return f'<User user_id={self.user_id} email={self.email}>'
+    def __repr__(self):
+        return f'<User user_id={self.user_id} email={self.email}>'
 
 class Therapist(db.Model):
     """A therapist."""
