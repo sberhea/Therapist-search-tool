@@ -48,8 +48,11 @@ def login():
 
     user = crud.verify_user_login(email, password)
     
+    print("***********", user.user_id)
+
     if user and user.password == password:
         session['user_id'] = user.user_id
+        print(user.user_id)
         # flash(f'Login successful! {email}')
         return redirect('/profile')
     else:
@@ -83,9 +86,10 @@ def user_profile():
 def add_bookmark(therapist_id):
     
     user_id = session.get('user_id')
-    user = crud.get_user_by_id('user_id')
+    user = crud.get_user_by_id(user_id) #uncommented quotes
     
     therapist = crud.therapist_details('therapist_id')
+    print(therapist.therapist_id)
     
     if user:
         bookmark = crud.create_user_bookmark(user, therapist_id)
@@ -100,6 +104,7 @@ def add_bookmark(therapist_id):
 def show_bookmarks():
     
     user_id = session.get('user_id')
+    print('********', user_id)
     
     if user_id:
         user = crud.get_user_by_id(user_id)

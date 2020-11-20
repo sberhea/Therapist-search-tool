@@ -83,8 +83,8 @@ class Bookmark(db.Model):
     
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
     
-    # user = db.relationship('User', backref='bookmarks') # look nto the secondary syntax (see data modeling lecture, BookGenres)
-    # therapist = db.relationship('Therapist', backref='bookmarks')
+    user = db.relationship('User', backref='bookmark') # look nto the secondary syntax (see data modeling lecture, BookGenres)
+    therapist = db.relationship('Therapist', backref='bookmark')
 
     def __repr__(self):
         return f'<Bookmark bookmark_id={self.bookmark_id}>'

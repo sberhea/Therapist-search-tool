@@ -29,11 +29,13 @@ def get_user_by_email(email):
     return User.query.filter(User.email == email).first()
 
 def verify_user_login(email, password):
-    return User.query.filter(User.email == email & User.password == password).first()
+    return User.query.filter((User.email == email) & (User.password == password)).first()
 
 def get_user_by_id(user_id):
 
-    return User.query.get(user_id)
+    return User.query.filter(User.user_id == user_id).first()
+
+    # return User.query.get(user_id)
 
 
 def create_therapist(name, pic, description, phonenum, fp, latitude, longitude, sliding_scale):
@@ -83,22 +85,17 @@ def get_bookmark_list(user_id):
     #First get all bookmarks
     #Then filter bookmarks by user_id. 
 
-    # bookmark = Bookmark.query.all()
-    # user = User.query.get(user_id)
+    bookmark_list = []
+    user_bookmark = Bookmark.query.filter(User.user_id == user_id).all() #TypeError: Incompatible collection type: Therapist is not list-like
 
-    # user_bookmark = bookmark.filter(user_id=user_id)
-
-    # #Gets one bookmark by bookmark id
-    # bookmark_list = []
-    # user_bookmark = Bookmark.query.filter(User.user_id == user_id).all() #TypeError: Incompatible collection type: Therapist is not list-like
-
-    # for bookmark in user_bookmark:
-    #     bookmarked_therapist = Therapist.query.filter_by(therapist_id = bookmark.therapist_id.all())
-    #     bookmark_list.append(bookmarked_therapist)
+    for bookmark in user_bookmark:
+        bookmarked_therapist = Therapist.query.filter_by(therapist_id = bookmark.therapist_id.all())
+        bookmark_list.append(bookmarked_therapist)
     
-    # return bookmark_list
+    return bookmark_list
 
-    return db.session.query(Bookmark, Therapist).join(Therapist, Bookmark.therapist_id == Therapist.therapist_id).filter(Bookmark.user_id == user_id).all()
+    # return db.session.query(Bookmark, Therapist).join(Therapist, 
+    #                         Bookmark.therapist_id == Therapist.therapist_id).filter(Bookmark.user_id == user_id).all()
 
 
 """Old code"""
@@ -115,6 +112,13 @@ def get_bookmark_list(user_id):
 #         bookmarks.append(db.session.query(Therapist.name).filter_by(therapist_id=t.therapist_id).all())
     
 #     return bookmarks
+
+ # bookmark = Bookmark.query.all()
+    # user = User.query.get(user_id)
+
+    # user_bookmark = Bookmark.filter(user_id=user_id)
+
+    #Gets one bookmark by bookmark id
 
 
 
