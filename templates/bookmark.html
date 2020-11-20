@@ -4,7 +4,7 @@
     <h2>Bookmarks</h2>
     {% for b in bookmarks %}
     <li id="t-name">{{therapist.name}}</li>
-    <li><a href='/therapists/{{therapist_id}}'>See more</a></li>
+    <li><a href='/therapists/{{ b.therapist_id }}'>See more</a></li>
     {% endfor %}
 
 {% endblock %}

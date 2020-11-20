@@ -40,7 +40,7 @@ def login():
 
     return render_template('login.html')
 
-@app.route('/login') #method not allowed
+@app.route('/login', methods=['POST']) #method not allowed
 def login_user():
     """Log in user."""
 
@@ -49,7 +49,7 @@ def login_user():
     email = request.form.get('email')
     password = request.form.get('password')
 
-    user = crud.verify_user_login(email, password)
+    user = crud.get_user_by_email(email)
     
     print("***********", user.user_id)
 
@@ -62,28 +62,33 @@ def login_user():
         flash('Username or password incorrect')
         return redirect('/login')
     
-@app.route('/logout')
-def logout_user():
+# @app.route('/logout', methods=['POST'])
+# def logout_user():
     
-    user_id = session.get('user_id')
-    user = crud.get_user_by_id(user_id)
+#     user_id = session.get('user_id')
+#     user = crud.get_user_by_id(user_id)
 
-    if user:
-        del session['user_id']
-        return redirect('/')
+#     if user:
+#         del session['user_id']
+#         return redirect('/')
 
-@app.route('/profile', methods=['POST'])
+@app.route('/profile')
 def user_profile():
     """This is the user profile"""
-
     user_id = session.get('user_id')
-    user = crud.get_user_by_id(user_id)
+
+    if user_id:
+        user = crud.get_user_by_id(user_id)
+        return render_template('user_profile.html', user=user)
+    else:
+        flash('Please log in')
+        return redirect('/login')
+    
+    
     
     # session['user_id'] = user.user_id
     # session.get('user_id', user_id)
 
-
-    return render_template('user_profile.html', user=user, user_id=user_id)
 
 @app.route('/bookmark/<therapist_id>', methods=['POST', 'GET'])
 def add_bookmark(therapist_id):
@@ -92,12 +97,15 @@ def add_bookmark(therapist_id):
     user = crud.get_user_by_id(user_id) #uncommented quotes
     
     therapist = crud.therapist_details(therapist_id)
+    # one_therapist_id = crud.therapist_details(therapist_id)
+    print("**************", user.user_id)
     print("**************", therapist.therapist_id)
+    print("**************", therapist)
     
     if user:
         bookmark = crud.create_user_bookmark(user, therapist)
         flash('Bookmark added')
-        return redirect('/therapists', user=user, therapist=therapist)
+        return render_template('all_therapists.html', bookmark=bookmark, therapist=therapist)
     else:
         flash('Cannot bookmark therapist')
         return redirect('/therapists')
