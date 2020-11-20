@@ -64,6 +64,8 @@ def therapist_details(therapist_id):
 def create_bookmark(user, therapist):
     """Create and return a new bookmark."""
 
+    #Isn't this just taking in user and therapist object? Do I want it to take in user_id and therapist_id?
+
     bookmark = Bookmark(user=user, therapist=therapist)
 
     db.session.add(bookmark)
@@ -71,15 +73,40 @@ def create_bookmark(user, therapist):
 
     return bookmark
 
-def get_bookmark_by_userid(user_id): #renamethis func if you wan it to both return all bookma=rked theapists AND add a bookmarked traoist
-    """Find bookmarks associated with a user id"""
-    therapist_list = db.session.query(Bookmarks.therapist_id).filter_by(user_id=user_id).all()
-    bookmarks = []
-    user = User.query.get(user_id)
-    user.therapists.append(this_would_be_aTherapist_object) #if you have t object, this will create the relationship
+def get_bookmark_list(user_id):
+    """Pull all bookmarks associated with a user id"""
 
-    for t in therapist_list:
-        bookmarks.append(db.session.query(Therapist.name).filter_by(therapist_id=t.therapist_id).all())
+    #First get all bookmarks
+    #Then filter bookmarks by user_id. 
+
+    # bookmark = Bookmark.query.all()
+    # user = User.query.get(user_id)
+
+    # user_bookmark = bookmark.filter(user_id=user_id)
+
+    # #Gets one bookmark by bookmark id
+
+    return Bookmark.query.filter(User.user_id == user_id).all() #TypeError: Incompatible collection type: Therapist is not list-like
+
+
+
+
+
+"""Old code"""
+# def get_bookmark_by_userid(user_id): #renamethis func if you wan it to both return all bookma=rked theapists AND add a bookmarked traoist
+#     """Find bookmarks associated with a user id"""
+#     therapist_list = db.session.query(Bookmarks.therapist_id).filter_by(user_id=user_id)
+#     bookmarks = []
+
+#     # user = User.query.get(user_id)
     
-    return bookmarks
+#     # user.therapists.append(this_would_be_aTherapist_object) #if you have t object, this will create the relationship
+
+#     for t in therapist_list:
+#         bookmarks.append(db.session.query(Therapist.name).filter_by(therapist_id=t.therapist_id).all())
+    
+#     return bookmarks
+
+
+
 

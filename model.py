@@ -48,10 +48,11 @@ class Therapist(db.Model):
     fp = db.Column(db.String)
     sliding_scale = db.Column(db.String)
 
-    # insurance = a list of Insurance objects
+    # Bookmark = list of bookmarks. One_bookmark = one individual bookmark. 
 
-    # def __repr__(self):
-    #     return f'<Movie movie_id>{self.movie_id} title={self.title}>'
+    bookmark = db.relationship("Bookmark",
+                             secondary="one_bookmark",
+                             backref="therapist")
 
 class Insurance(db.Model):
 
@@ -72,16 +73,34 @@ class Insurance(db.Model):
 
 class Bookmark(db.Model):
     """A list of therapists the user bookmarked"""
+    
     __tablename__ = 'bookmark'
 
     bookmark_id = db.Column(db.Integer,
                             autoincrement=True,
                             primary_key=True)
     therapist_id = db.Column(db.Integer, db.ForeignKey('therapist.therapist_id'))
+    
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
     
     user = db.relationship('User', backref='bookmarks') # look nto the secondary syntax (see data modeling lecture, BookGenres)
-    therapist = db.relationship('Therapist', backref='bookmarks')
+    # therapist = db.relationship('Therapist', backref='bookmarks')
+
+class OneBookmark(db.Model):
+    """One bookmarked therapist"""
+    
+    __tablename__ = 'one_bookmark'
+
+    one_bookmark_id = db.Column(db.Integer,
+                            autoincrement=True,
+                            primary_key=True)
+    therapist_id = db.Column(db.Integer, 
+                            db.ForeignKey('therapist.therapist_id'), 
+                            nullable=False)
+    bookmark_id = db.Column(db.Integer, 
+                            db.ForeignKey('bookmark.bookmark_id'), 
+                            nullable=False)
+    
 
 def connect_to_db(flask_app, db_uri='postgresql:///therapist', echo=True):
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
