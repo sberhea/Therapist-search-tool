@@ -59,8 +59,9 @@ def get_therapist():
     return Therapist.query.all()
      
 
-def therapist_details(therapist_id):
-    return Therapist.query.get(therapist_id)
+def get_therapist_byid(therapist_id):
+    # return Therapist.query.get(therapist_id)
+    return Therapist.query.filter(therapist_id == therapist_id).first()
      
 
 def create_user_bookmark(user, therapist):
@@ -77,7 +78,7 @@ def create_user_bookmark(user, therapist):
 
 def get_bookmark_byid(bookmark_id):
     
-    return Bookmark.query.get(bookmark_id)
+    return Bookmark.query.filter(bookmark_id == bookmark_id).one()
 
 def get_bookmark_list(user_id):
     """Pull all bookmarks associated with a user id"""
@@ -86,17 +87,26 @@ def get_bookmark_list(user_id):
     #Then filter bookmarks by user_id. 
 
     bookmark_list = []
-    user_bookmark = Bookmark.query.filter(User.user_id == user_id).all() #TypeError: Incompatible collection type: Therapist is not list-like
+    user_bookmark = Bookmark.query.filter(user_id == user_id).all() #TypeError: Incompatible collection type: Therapist is not list-like
 
     for bookmark in user_bookmark:
-        bookmarked_therapist = Therapist.query.filter_by(therapist_id = bookmark.therapist_id.all())
-        bookmark_list.append(bookmarked_therapist)
+        bookmarked_therapist = Therapist.query.filter_by(therapist_id = bookmark.therapist_id).all()
+        bookmark_list.append(bookmark)
     
     return bookmark_list
 
     # return db.session.query(Bookmark, Therapist).join(Therapist, 
     #                         Bookmark.therapist_id == Therapist.therapist_id).filter(Bookmark.user_id == user_id).all()
 
+def get_therapist_by_bookid(therapist_id):
+
+    return Bookmark.query.filter(Bookmark.therapist_id == therapist_id).all()
+    
+    # db.session.query(Bookmark, Therapist).join(Therapist).all()
+
+
+    # for bookmark in bookmarked_therapist:
+    #     return Therapist.query.filter_by(therapist_id == Bookmark.therapist_id).all()
 
 """Old code"""
 # def get_bookmark_by_userid(user_id): #renamethis func if you wan it to both return all bookma=rked theapists AND add a bookmarked traoist

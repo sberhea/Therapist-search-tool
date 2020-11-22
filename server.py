@@ -90,41 +90,65 @@ def user_profile():
     # session.get('user_id', user_id)
 
 
-@app.route('/bookmark/<therapist_id>', methods=['POST', 'GET'])
-def add_bookmark(therapist_id):
+@app.route('/bookmark', methods=['POST', 'GET']) #, 'GET'
+def add_bookmark():
     
+    therapist_id = request.args.get("therapist")
+    therapist = crud.get_therapist_byid(therapist_id)
+
     user_id = session.get('user_id')
     user = crud.get_user_by_id(user_id) #uncommented quotes
+
+    bookmark = crud.create_user_bookmark(user, therapist)
+    flash('Bookmark added')
+    return redirect('/therapists')
+
+    # therapist = crud.get_therapist()
+    # therapist_id = crud.get_therapist_byid(therapist_id)
+    # # one_therapist_id = crud.get_therapist_byid(therapist_id)
+    # print("**************", user.user_id)
+    # print("**************", therapist.therapist_id)
+    # print("**************", therapist)
     
-    therapist = crud.therapist_details(therapist_id)
-    # one_therapist_id = crud.therapist_details(therapist_id)
-    print("**************", user.user_id)
-    print("**************", therapist.therapist_id)
-    print("**************", therapist)
-    
-    if user:
-        bookmark = crud.create_user_bookmark(user, therapist)
-        flash('Bookmark added')
-        return render_template('all_therapists.html', bookmark=bookmark, therapist=therapist)
-    else:
-        flash('Cannot bookmark therapist')
-        return redirect('/therapists')
-    
+    # if user:
+    #     bookmark = crud.create_user_bookmark(user_id, therapist_id)
+    #     flash('Bookmark added')
+    #     return render_template('all_therapists.html', bookmark=bookmark, therapist=therapist)
+    # else:
+    #     flash('Cannot bookmark therapist')
+    #     return redirect('/therapists')
+
+# bookmark = crud.create_user_bookmark(user, therapist)
+        # flash('Bookmark added')
+        # return render_template('all_therapists.html', bookmark=bookmark, therapist=therapist)
 
 @app.route('/my-bookmarks')
 def show_bookmarks():
     
     user_id = session.get('user_id')
     print('********', user_id)
-    
+
     if user_id:
         user = crud.get_user_by_id(user_id)
         bookmarks = crud.get_bookmark_list(user_id)
+        therapist = crud.get_therapist()
+        print('********', therapist)
+        print('********', bookmarks)
+        print('********', bookmarks[1].therapist_id)
         
-        return render_template('bookmark.html', user=user, bookmarks=bookmarks)
+        return render_template('bookmark.html', user=user, bookmarks=bookmarks, therapist=therapist)
     else:
         flash('You have no bookmarks')
         return redirect('/')
+
+@app.route('/delete-bookmark')
+def delete_bookmark():
+
+    user_id = session.get('user_id')
+    bookmarks = crud.get_bookmark_list(user_id)
+
+    bookmark_id = crud.get_bookmark_byid(bookmark_id)
+
         
 @app.route('/search')
 def search_tool():
@@ -142,7 +166,7 @@ def all_therapists():
 def one_therapist(therapist_id):
     """Display one therapist after the user clicks on a listing"""
     
-    therapist = crud.therapist_details(therapist_id)
+    therapist = crud.get_therapist_byid(therapist_id)
 
     return render_template('therapist_details.html', 
                             therapist=therapist)
