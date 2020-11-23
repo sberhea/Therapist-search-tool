@@ -129,14 +129,10 @@ def show_bookmarks():
     print('********', user_id)
 
     if user_id:
-        user = crud.get_user_by_id(user_id)
-        bookmarks = crud.get_bookmark_list(user_id)
-        therapist = crud.get_therapist()
-        print('********', therapist)
+        bookmarks = crud.get_bookmark_list()
         print('********', bookmarks)
-        print('********', bookmarks[1].therapist_id)
         
-        return render_template('bookmark.html', user=user, bookmarks=bookmarks, therapist=therapist)
+        return render_template('bookmark.html', bookmarks=bookmarks)
     else:
         flash('You have no bookmarks')
         return redirect('/')

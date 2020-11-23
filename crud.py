@@ -80,25 +80,33 @@ def get_bookmark_byid(bookmark_id):
     
     return Bookmark.query.filter(bookmark_id == bookmark_id).one()
 
-def get_bookmark_list(user_id):
+def get_bookmark_list():
     """Pull all bookmarks associated with a user id"""
 
     #First get all bookmarks
     #Then filter bookmarks by user_id. 
 
     bookmark_list = []
-    user_bookmark = Bookmark.query.filter(user_id == user_id).all() #TypeError: Incompatible collection type: Therapist is not list-like
+    # user_bookmark = Bookmark.query.filter(user_id == user_id).all()
+    result = db.session.query(Therapist, Bookmark).filter((Bookmark.therapist_id == Therapist.therapist_id) & (Bookmark.user_id == User.user_id))
 
-    for bookmark in user_bookmark:
-        bookmarked_therapist = Therapist.query.filter_by(therapist_id = bookmark.therapist_id).all()
-        bookmark_list.append(bookmark)
-    
+    for row in result:
+        t = {'name' : row[0].name, 'description' : row[0].description, 'pic' : row[0].pic, 'phonenum' : row[0].phonenum, 'therapist_id' : row[0].therapist_id}
+        bookmark_list.append(t)
+
     return bookmark_list
+    
+    
+    # for t in result.therapist:
+    #     print(t.name, t.descr)
+    #     return
+    
 
     # return db.session.query(Bookmark, Therapist).join(Therapist, 
     #                         Bookmark.therapist_id == Therapist.therapist_id).filter(Bookmark.user_id == user_id).all()
 
 def get_therapist_by_bookid(therapist_id):
+
 
     return Bookmark.query.filter(Bookmark.therapist_id == therapist_id).all()
     
