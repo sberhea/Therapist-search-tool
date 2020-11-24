@@ -35,8 +35,6 @@ def get_user_by_id(user_id):
 
     return User.query.filter(User.user_id == user_id).first()
 
-    # return User.query.get(user_id)
-
 
 def create_therapist(name, pic, description, phonenum, fp, latitude, longitude, sliding_scale):
     """Create and return a new therapist."""
@@ -60,14 +58,12 @@ def get_therapist():
      
 
 def get_therapist_byid(therapist_id):
-    # return Therapist.query.get(therapist_id)
+
     return Therapist.query.filter(therapist_id == therapist_id).first()
      
 
 def create_user_bookmark(user, therapist):
     """Create and return a new bookmark."""
-
-    #Isn't this just taking in user and therapist object? Do I want it to take in user_id and therapist_id?
 
     user_bookmark = Bookmark(user=user, therapist=therapist)
 
@@ -83,11 +79,8 @@ def get_bookmark_byid(bookmark_id):
 def get_bookmark_list():
     """Pull all bookmarks associated with a user id"""
 
-    #First get all bookmarks
-    #Then filter bookmarks by user_id. 
-
     bookmark_list = []
-    # user_bookmark = Bookmark.query.filter(user_id == user_id).all()
+   
     result = db.session.query(Therapist, Bookmark).filter((Bookmark.therapist_id == Therapist.therapist_id) & (Bookmark.user_id == User.user_id))
 
     for row in result:
@@ -97,24 +90,7 @@ def get_bookmark_list():
     return bookmark_list
     
     
-    # for t in result.therapist:
-    #     print(t.name, t.descr)
-    #     return
     
-
-    # return db.session.query(Bookmark, Therapist).join(Therapist, 
-    #                         Bookmark.therapist_id == Therapist.therapist_id).filter(Bookmark.user_id == user_id).all()
-
-def get_therapist_by_bookid(therapist_id):
-
-
-    return Bookmark.query.filter(Bookmark.therapist_id == therapist_id).all()
-    
-    # db.session.query(Bookmark, Therapist).join(Therapist).all()
-
-
-    # for bookmark in bookmarked_therapist:
-    #     return Therapist.query.filter_by(therapist_id == Bookmark.therapist_id).all()
 
 """Old code"""
 # def get_bookmark_by_userid(user_id): #renamethis func if you wan it to both return all bookma=rked theapists AND add a bookmarked traoist

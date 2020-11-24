@@ -17,6 +17,9 @@ def home_page():
 
     return render_template('homepage.html')
 
+
+""" ********************************* User creation, profile, and log in ********************************* """
+
 @app.route('/user', methods=['POST'])
 def create_registration():
     """Create user registration"""
@@ -51,7 +54,6 @@ def login_user():
 
     user = crud.get_user_by_email(email)
     
-    print("***********", user.user_id)
 
     if user and user.password == password:
         session['user_id'] = user.user_id
@@ -62,15 +64,15 @@ def login_user():
         flash('Username or password incorrect')
         return redirect('/login')
     
-# @app.route('/logout', methods=['POST'])
-# def logout_user():
+@app.route('/logout', methods=['POST'])
+def logout_user():
     
-#     user_id = session.get('user_id')
-#     user = crud.get_user_by_id(user_id)
+    user_id = session.get('user_id')
+    user = crud.get_user_by_id(user_id)
 
-#     if user:
-#         del session['user_id']
-#         return redirect('/')
+    if user:
+        del session['user_id']
+        return redirect('/')
 
 @app.route('/profile')
 def user_profile():
@@ -83,14 +85,10 @@ def user_profile():
     else:
         flash('Please log in')
         return redirect('/login')
-    
-    
-    
-    # session['user_id'] = user.user_id
-    # session.get('user_id', user_id)
 
+""" ********************************* Bookmark routes ********************************* """
 
-@app.route('/bookmark', methods=['POST', 'GET']) #, 'GET'
+@app.route('/bookmark', methods=['POST', 'GET']) 
 def add_bookmark():
     
     therapist_id = request.args.get("therapist")
@@ -103,28 +101,11 @@ def add_bookmark():
     flash('Bookmark added')
     return redirect('/therapists')
 
-    # therapist = crud.get_therapist()
-    # therapist_id = crud.get_therapist_byid(therapist_id)
-    # # one_therapist_id = crud.get_therapist_byid(therapist_id)
-    # print("**************", user.user_id)
-    # print("**************", therapist.therapist_id)
-    # print("**************", therapist)
-    
-    # if user:
-    #     bookmark = crud.create_user_bookmark(user_id, therapist_id)
-    #     flash('Bookmark added')
-    #     return render_template('all_therapists.html', bookmark=bookmark, therapist=therapist)
-    # else:
-    #     flash('Cannot bookmark therapist')
-    #     return redirect('/therapists')
-
-# bookmark = crud.create_user_bookmark(user, therapist)
-        # flash('Bookmark added')
-        # return render_template('all_therapists.html', bookmark=bookmark, therapist=therapist)
 
 @app.route('/my-bookmarks')
 def show_bookmarks():
-    
+    """Display therapists bookmarked by user"""
+
     user_id = session.get('user_id')
     print('********', user_id)
 
@@ -139,17 +120,26 @@ def show_bookmarks():
 
 @app.route('/delete-bookmark')
 def delete_bookmark():
+    """Deletes bookmark from user profile"""
 
     user_id = session.get('user_id')
     bookmarks = crud.get_bookmark_list(user_id)
 
     bookmark_id = crud.get_bookmark_byid(bookmark_id)
 
-        
-@app.route('/search')
-def search_tool():
-    """Search bar, filter and Google Maps displayed"""
 
+""" ********************************* Google Maps routes ********************************* """
+
+@app.route('/map_search')
+def search_tool():
+    """Search bar/filter and Google Maps displayed"""
+    return render_template('map.html')
+
+@app.route('/data-vis')
+def show_datavis():
+    """Stats on Black mental health in MN"""
+
+""" ********************************* Display therapist info ********************************* """
 @app.route('/therapists')
 def all_therapists():
     """View all therapists."""
