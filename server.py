@@ -129,11 +129,28 @@ def delete_bookmark():
 
 
 """ ********************************* Google Maps routes ********************************* """
-
-@app.route('/map_search')
-def search_tool():
-    """Search bar/filter and Google Maps displayed"""
+@app.route("/map")
+def show_map():
+    """Show map."""
+    
     return render_template('map.html')
+
+@app.route('/api/therapists')
+def therapist_info():
+    """JSON info about therapists"""
+
+    therapists = [
+        {
+            "id": therapist.marker_id,
+            "therapist_id": therapist.therapist_id,
+            "name": therapist.name,
+            "pic": therapist.pic,
+            "phonenum": therapist.phonenum,
+            "latitude": therapist.latitude,
+            "longitude": therapist.longitude
+        }
+    ]
+    return jsonify(therapists)
 
 @app.route('/data-vis')
 def show_datavis():

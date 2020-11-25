@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block head %}
+    <script defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBs2YY1_f_faBTNr0A4cTJilpZTeCMnFnQ&callback=initMap">
+    </script> 
+    <script src="/static/js/map_draft.js"></script>
+    <link rel="stylesheet" href="/static/css/maps.css">
+    <link rel="stylesheet" href="/static/css/map2.css">
+    <style>
+      #map {
+        height: 100%;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  
+{% endblock %}
+{% block body %}
+    <header>
+      <nav>
+        <section id="links-right">
+          <a href="/">home</a>
+        </section>
+      </nav>
+    </header>
+
+    <main>
+      <section class="map">
+        <div id="map" style= "height:100%"></div>
+      </section>
+    </main>
+    <!-- <h3>My Google Maps Demo</h3>
+    
+    <div id="map"></div> -->
+{% endblock %}
