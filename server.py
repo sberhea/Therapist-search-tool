@@ -1,7 +1,7 @@
 """Server for therapists app."""
 
 from flask import (Flask, render_template, request, flash, session,
-                   redirect)
+                   redirect, jsonify)
 from model import connect_to_db
 import crud
 
@@ -133,23 +133,26 @@ def delete_bookmark():
 def show_map():
     """Show map."""
     
-    return render_template('map.html')
+    return render_template('secondmap.html')
 
 @app.route('/api/therapists')
 def therapist_info():
     """JSON info about therapists"""
 
+    # therapist_by_id = crud.get_therapist_byid(therapist_id)
+
     therapists = [
         {
-            "id": therapist.marker_id,
             "therapist_id": therapist.therapist_id,
             "name": therapist.name,
             "pic": therapist.pic,
             "phonenum": therapist.phonenum,
-            "latitude": therapist.latitude,
-            "longitude": therapist.longitude
+            "latitude": str(therapist.latitude),
+            "longitude": str(therapist.longitude)
         }
+        for therapist in crud.get_therapist()
     ]
+
     return jsonify(therapists)
 
 @app.route('/data-vis')

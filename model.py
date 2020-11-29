@@ -32,9 +32,6 @@ class Therapist(db.Model):
     therapist_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True)
-    marker_id = db.Column(db.Integer, 
-                        autoincrement=True, 
-                        primary_key=True)
     name = db.Column(db.String)
     # specialty = db.Column(db.String)
     # address = db.Column(db.Text)

@@ -27,7 +27,6 @@ $('.add-bookmark').on('click', (evt) => {
     });
 })
 
-function initMap() {}
 
 // """const button = document.querySelector('#angry-button');
 

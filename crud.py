@@ -54,6 +54,7 @@ def create_therapist(name, pic, description, phonenum, fp, latitude, longitude, 
     return therapist
 
 def get_therapist():
+    
     return Therapist.query.all()
      
 
