@@ -14,8 +14,10 @@ function initMap() {
   
   const map = new google.maps.Map( document.querySelector('#map'),{
     center: { lat: 44.9778, lng: -93.2650 },
-    zoom: 8,
+    zoom: 11,
   }); //close base map
+
+const therapistInfo = new google.maps.InfoWindow();
 
     // Retrieve info with AJAX
     const jsonURL = "/api/therapists";
@@ -27,11 +29,14 @@ function initMap() {
         const therapistInfoContent = (`
         <div class = "window-content">
           <div class = "t-thumbnail">
-            <img src = therapist.pic">
+            <img src = ${therapist.pic}>
           </div>
           
           <ul class="therapist-info">
-            <li><b>Therapist name: </b>${therapist.name}</li>
+            <li><b>Name: </b>${therapist.name}</li>
+            <li><b>Description: </b>${therapist.description}</li>
+            <li><b>Call: </b>${therapist.phonenum}</li>
+            <li><a href = ${therapist.fp}> Link to full profile </a></li>
           </ul>
         </div>
         `);
@@ -43,10 +48,10 @@ function initMap() {
             lng: Number(therapist.longitude)
           },
           title: `Therapist ID: ${therapist.therapist_id}`,
-          icon: {
-            url: therapist.pic,
-            scaledSize: new google.maps.Size(50,50)
-          },
+          // icon: {
+          //   url: therapist.pic,
+          //   scaledSize: new google.maps.Size(50,50)
+          // },
           map: map,
         }); //marker closed
         

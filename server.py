@@ -133,7 +133,7 @@ def delete_bookmark():
 def show_map():
     """Show map."""
     
-    return render_template('secondmap.html')
+    return render_template('map.html')
 
 @app.route('/api/therapists')
 def therapist_info():
@@ -147,6 +147,8 @@ def therapist_info():
             "name": therapist.name,
             "pic": therapist.pic,
             "phonenum": therapist.phonenum,
+            "description": therapist.description,
+            "fp": therapist.fp,
             "latitude": str(therapist.latitude),
             "longitude": str(therapist.longitude)
         }
