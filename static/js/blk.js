@@ -27,9 +27,6 @@ $('.add-bookmark').on('click', (evt) => {
     });
 })
 
-
-// """const button = document.querySelector('#angry-button');
-
-// button.addEventListener('click', () => {
-//   alert('Stop clicking me!');
-// });"""
+$(document).ready(function(){
+    $('.header').height($(window).height());
+  })
