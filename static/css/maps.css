@@ -3,9 +3,9 @@ body {
     grid-template: 'head' 'map' 1fr / auto;
 }
   
-header {
+/* header {
     grid-area: head;
-}
+} */
   
 main {
     grid-area: map;
@@ -13,7 +13,7 @@ main {
   
 nav {
     display: flex;
-    background: rgb(88, 89, 91);
+    background: #434BDE;
 }
   
 nav p, nav a, nav button {
@@ -42,34 +42,107 @@ nav a:hover, nav button:hover {
     /* yellow; */
 }
 
+.navbar-collapse {
+    justify-content: flex-end;
+}
+
 #links-right {
-    margin-left: auto;
+    margin-right: 1em !important;
 }
   
 .map, #map {
-    width: 100%;
-    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100% ; 
+    /* 900 px */
+    height: 700px;
+    float: left;
 }
+/* 
+#sidebar {
+    width: 200px;
+    height: 700px;
+    float: right;
+} */
 
-.header {
-    background-image: url('img/bm-closedeyes.jpg');
-    background-size: cover;
-    background-position: center;
-    position: relative;
-  }
+/* .img {
+    width: 100%;
+    height: 100%%;
+    object-fit: cover;
+} */
 
-.overlay {
+/* .overlay {
     position: absolute;
     min-height: 100%;
     min-width: 100%;
     left: 0;
     top: 0;
     background: rgba(0, 0, 0, 0.6);
-  }
+} */
 
-  .form {
+/* .form {
       position: center;
       background-color: #DE7243;
-      color: #B59376 ;
+      color: #B59376 ; */
 
-  }
+}
+
+.header {
+    background-image: url('../img/bm-closedeyes2.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.description {
+    left: 50%;
+    position: absolute;
+    top: 45%;
+    transform: translate(-50%, -55%);
+    text-align: center;
+}
+  
+.description h1 {
+    color: #DE7243;
+}
+
+.description p {
+    color: #fff;
+    font-size: 1.3rem;
+    line-height: 1.5;
+}
+.features {
+    margin: 4em auto;
+    padding: 1em;
+    position: relative;
+}
+  
+.feature-title {
+    color: #333;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+  
+.features img {
+    -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    margin-bottom: 16px;
+}
+
+.features .form-control,
+.features input {
+    border-radius: 0;
+}
+
+.features .btn {
+  background-color:#434BDE;
+  border: 1px solid #434BDE;
+  color: #fff;
+  margin-top: 20px;
+}
+.features .btn:hover {
+  background-color: #333;
+  border: 1px solid #333;

@@ -1,15 +1,6 @@
 "use strict"
 let map;
 
-// function initMap() {
-//     // Code that works with Google Maps here
-//     map = new google.maps.Map( document.querySelector('#map'),{
-//         center: { lat : 44.9375 , lng: 93.2010 },
-//         zoom: 11,
-//     });
-// (document.getElementById("map")
-//   }
-
 function initMap() {
   
   const map = new google.maps.Map( document.querySelector('#map'),{
@@ -18,6 +9,7 @@ function initMap() {
   }); //close base map
 
 const therapistInfo = new google.maps.InfoWindow();
+
 
     // Retrieve info with AJAX
     const jsonURL = "/api/therapists";

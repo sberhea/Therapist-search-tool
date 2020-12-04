@@ -21,7 +21,7 @@ def create_user(email, password):
     return user
 
 def login_user():
-    username = User.query.get(email)
+    email = User.query.get(email)
     password = User.query.get(password) 
 
 def get_user_by_email(email):

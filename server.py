@@ -111,7 +111,6 @@ def show_bookmarks():
 
     if user_id:
         bookmarks = crud.get_bookmark_list()
-        print('********', bookmarks)
         
         return render_template('bookmark.html', bookmarks=bookmarks)
     else:
