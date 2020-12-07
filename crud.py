@@ -82,9 +82,10 @@ def get_bookmark_list(user_id):
 
     bookmark_list = []
    
-    result = db.session.query(Therapist, Bookmark).filter((Bookmark.therapist_id == Therapist.therapist_id) & (Bookmark.user_id == User.user_id))
+    result = db.session.query(Therapist, Bookmark).filter((Bookmark.therapist_id == Therapist.therapist_id) & (Bookmark.user_id == user_id))
 
     for row in result:
+        print(row)
         t = {'name' : row[0].name, 'description' : row[0].description, 'pic' : row[0].pic, 'phonenum' : row[0].phonenum, 'therapist_id' : row[0].therapist_id}
         
         bookmark_list.append(t)
@@ -95,12 +96,12 @@ def get_bookmark_list(user_id):
 
 #     blist = []
 
-#     userbookmark = Bookmark.query.filter(Bookmark.user_id == User.user_id)
+#     user_bookmark = Bookmark.query.filter(Bookmark.user_id == user_id)
 
-#     for row in userbookmark:
-#         t = {'name' : row[0].name, 'description' : row[0].description, 'pic' : row[0].pic, 'phonenum' : row[0].phonenum, 'therapist_id' : row[0].therapist_id}
+#     for row in user_bookmark:
+#         print(row)
     
-#     return blist
+    # return blist
 
     
 
