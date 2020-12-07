@@ -2,8 +2,20 @@
 {% block title %}My Profile{% endblock %}
 {% block body %}
     <h3>Hello</h3>
-    <p><a href="/my-bookmarks">Check out your bookmarks</a></p>
+    <p><a href="/my-bookmarks/{{ user_id }}">Check out your bookmarks</a></p>
     <p><a href="/therapists">Browse therapist listing</a></p>
     <form action="/logout" method="POST"><button>Sign Out</button></form>
+
+    <!-- <div class="container features">
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <h3 class="feature-title">Welcome!
+      </h3>
+      <p>We list over __ therapists across the Twin Cities</p>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <h3 class="feature-title">Check out your bookmakrs</h3>
+      <p>It's easy to save therapists you are interested in.</p>
+    </div>
 
 {% endblock %}

@@ -77,11 +77,12 @@ def logout_user():
 @app.route('/profile')
 def user_profile():
     """This is the user profile"""
+    
     user_id = session.get('user_id')
 
     if user_id:
         user = crud.get_user_by_id(user_id)
-        return render_template('user_profile.html', user=user)
+        return render_template('user_profile.html', user=user, user_id=user_id)
     else:
         flash('Please log in')
         return redirect('/login')
@@ -97,22 +98,29 @@ def add_bookmark():
     user_id = session.get('user_id')
     user = crud.get_user_by_id(user_id) #uncommented quotes
 
-    bookmark = crud.create_user_bookmark(user, therapist)
-    flash('Bookmark added')
+    # if therapist_id in Bookmark:
+    #     flash('Bookmark already added')
+    # else:
+    if user:
+        bookmark = crud.create_user_bookmark(user, therapist)
+        flash('Bookmark added!')
+    else:
+        flash('Log in to add a bookmark.')
+    
     return redirect('/therapists')
 
 
-@app.route('/my-bookmarks')
-def show_bookmarks():
+@app.route('/my-bookmarks/<user_id>', methods=['GET'])
+def show_bookmarks(user_id):
     """Display therapists bookmarked by user"""
 
     user_id = session.get('user_id')
     print('********', user_id)
 
     if user_id:
-        bookmarks = crud.get_bookmark_list()
+        bookmark_list = crud.get_bookmark_list(user_id)
         
-        return render_template('bookmark.html', bookmarks=bookmarks)
+        return render_template('bookmark.html', bookmark_list=bookmark_list)
     else:
         flash('You have no bookmarks')
         return redirect('/')

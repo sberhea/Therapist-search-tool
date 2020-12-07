@@ -87,7 +87,7 @@ class Bookmark(db.Model):
     therapist = db.relationship('Therapist', backref='bookmark')
 
     def __repr__(self):
-        return f'<Bookmark bookmark_id={self.bookmark_id}>'
+        return f'<Bookmark bookmark_id={self.bookmark_id} therapist_id={self.therapist_id} user_id={self.user_id}>'
 
 
 # class OneBookmark(db.Model):

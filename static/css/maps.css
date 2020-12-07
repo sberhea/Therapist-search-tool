@@ -111,6 +111,14 @@ nav a:hover, nav button:hover {
     font-size: 1.3rem;
     line-height: 1.5;
 }
+
+.login .btn {
+    background-color:#434BDE;
+    border: 1px solid #434BDE;
+    color: #fff;
+    margin-top: 20px;
+}
+
 .features {
     margin: 4em auto;
     padding: 1em;
@@ -146,3 +154,11 @@ nav a:hover, nav button:hover {
 .features .btn:hover {
   background-color: #333;
   border: 1px solid #333;
+
+.tlist .therapist-name {
+    color: #333;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}

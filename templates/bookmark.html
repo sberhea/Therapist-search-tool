@@ -3,7 +3,7 @@
 {% block body %}
     
     <h2>Bookmarks</h2>
-    {% for b in bookmarks %}
+    {% for b in bookmark_list %}
             <li><a href='/therapists/{{ b.therapist_id }}'> {{ b.name }} </a></li>
     {% endfor %}
 

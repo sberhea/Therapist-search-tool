@@ -21,7 +21,7 @@
 $('.add-bookmark').on('click', (evt) => {
     evt.preventDefault
     const therapist = $(evt.target);
-    const therapist_id = {therapist: therapist.attr('id')};
+    const therapist_id = {therapist: therapist.attr('therapist_id')};
     $.get('/bookmark', therapist_id, (res) => {
         alert(res);
     });

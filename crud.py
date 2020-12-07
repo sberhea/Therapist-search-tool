@@ -77,7 +77,7 @@ def get_bookmark_byid(bookmark_id):
     
     return Bookmark.query.filter(bookmark_id == bookmark_id).one()
 
-def get_bookmark_list():
+def get_bookmark_list(user_id):
     """Pull all bookmarks associated with a user id"""
 
     bookmark_list = []
@@ -86,14 +86,25 @@ def get_bookmark_list():
 
     for row in result:
         t = {'name' : row[0].name, 'description' : row[0].description, 'pic' : row[0].pic, 'phonenum' : row[0].phonenum, 'therapist_id' : row[0].therapist_id}
+        
         bookmark_list.append(t)
 
     return bookmark_list
     
+# def second_bookmark_list(user_id):
+
+#     blist = []
+
+#     userbookmark = Bookmark.query.filter(Bookmark.user_id == User.user_id)
+
+#     for row in userbookmark:
+#         t = {'name' : row[0].name, 'description' : row[0].description, 'pic' : row[0].pic, 'phonenum' : row[0].phonenum, 'therapist_id' : row[0].therapist_id}
     
+#     return blist
+
     
 
-"""Old code"""
+#     """Old code"""
 # def get_bookmark_by_userid(user_id): #renamethis func if you wan it to both return all bookma=rked theapists AND add a bookmarked traoist
 #     """Find bookmarks associated with a user id"""
 #     therapist_list = db.session.query(Bookmarks.therapist_id).filter_by(user_id=user_id)
