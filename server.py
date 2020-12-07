@@ -79,10 +79,11 @@ def user_profile():
     """This is the user profile"""
     
     user_id = session.get('user_id')
+    bookmark_list = crud.get_bookmark_list(user_id)
 
     if user_id:
         user = crud.get_user_by_id(user_id)
-        return render_template('user_profile.html', user=user, user_id=user_id)
+        return render_template('user_profile.html', user=user, user_id=user_id, bookmark_list=bookmark_list)
     else:
         flash('Please log in')
         return redirect('/login')
@@ -120,7 +121,7 @@ def show_bookmarks(user_id):
     if user_id:
         bookmark_list = crud.get_bookmark_list(user_id)
         
-        return render_template('bookmark.html', bookmark_list=bookmark_list)
+        return render_template("bookmark.html", bookmark_list=bookmark_list)
     else:
         flash('You have no bookmarks')
         return redirect('/')

@@ -1,11 +1,30 @@
 {% extends 'base.html' %}
 {% block title %}My Profile{% endblock %}
 {% block body %}
-    <h3>Hello</h3>
-    <p><a href="/my-bookmarks/{{ user_id }}">Check out your bookmarks</a></p>
-    <p><a href="/therapists">Browse therapist listing</a></p>
-    <form action="/logout" method="POST"><button>Sign Out</button></form>
-
+  <div class="container profile">
+    <div class="row">
+      
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <h3 class="feature-title">Welcome to your profile!</h3>
+        <!-- <p><a href="/my-bookmarks/{{ user_id }}">Click here</a></p> -->
+        <img src="../static/img/bw-flowereyes.jpg" class="img-fluid">
+      </div>
+      
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <h3 class="feature-title">Your Faved Therapists</h3>
+        {% for b in bookmark_list %}
+                <li><a href='/therapists/{{ b.therapist_id }}'> {{ b.name }} </a></li>
+        {% endfor %}
+      </div>
+      
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <h3 class="feature-title">Sign out</h3>
+        <form action="/logout" method="POST"><button>Sign Out</button></form>
+      </div>
+    
+    </div>
+    
+  </div>
     <!-- <div class="container features">
   <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-12">
