@@ -2,48 +2,34 @@
 {% block title %}All Therapists{% endblock %}
 {% block body %}
 
-<div class="container tlist">
-  <div class="row">
-    <div class="col-lg-4 col-md-4 col-sm-12">
 
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      {% for t in therapist %}
-      <p class="therapist-name">
-        <a href="/therapists/{{ t.therapist_id }}">
-          {{ t.name }} 
-        </a>
-      </p>
-      <p><img src = "{{ t.pic }}"></p>
-      <p class="therapist-description">{{t.description}}</p>
-      <p class="therapist-phonenum">Contact {{t.name}} here: {{t.phonenum}}</p>
-      
-      <p>
+<div class="container tlist">
+  {% for t in therapist %}
+  <ul class="list-group">
+    <span class="border border-light">
+    <div class="t-box">
+      <div class="image-parent">
+        <img src="{{ t.pic }}" class="rounded-circle" alt="lay">
+      </div>
+      <br>
+      <div class="flex-column">
+        <h4 class="therapist-name"> {{t.name}}</h4>
+        <p class="therapist-description"><i> {{t.description}} </i><a href="/therapists/{{ t.therapist_id }}">
+          Read more.</a></p>
         <form class="bookmark-button", action= "/bookmark", method= "POST">
-          <button class="add-bookmark">Bookmark</button>
+          <button class="add-bookmark" id="btn">Bookmark</button>
         </form>
-      </p>
-        <br></br>
-      {% endfor %}
+        <br>
+      </div>
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      
-    </div>
-  </div>
+    </span>
+    <br>
+  </ul>
+  {% endfor %}
 </div>
 
-<!-- <div class="container features">
-  <div class="row">
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      <h3 class="feature-title">Browse our listing</h3>
-      <img src="images/column-1.jpg" class="img-fluid">
-      <p>We list over __ therapists across the Twin Cities</p>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      <h3 class="feature-title">Bookmark therapists</h3>
-      <img src="images/column-2.jpg" class="img-fluid">
-      <p>It's easy to save therapists you are interested in.</p>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">  
 {% endblock %}
+
+
+
 

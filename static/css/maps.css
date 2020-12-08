@@ -155,11 +155,41 @@ nav a:hover, nav button:hover {
 .features .btn:hover {
   background-color: #333;
   border: 1px solid #333;
+}
 
-.tlist .therapist-name {
+.tlist{
+    margin: 2em auto;
+    padding: 1em;
+    position: center;
+}
+.tlist .list-group{
+    text-align: center;
+}
+.tlist .border{
+    padding: 2em;
+    /* color: ; */
+}
+.tlist .tbox{
+    background-color: #B59376;
+}
+
+.tlist .therapist-name{
     color: #333;
     font-size: 1.3rem;
     font-weight: 700;
     margin-bottom: 20px;
     text-transform: uppercase;
 }
+.tlist #btn{
+    background-color:#434BDE;
+    border: 1px solid #434BDE;
+    color: #fff;
+    margin-top: 20px;
+    border-radius: 30px;
+    padding: .5rem;
+}
+
+.tlist .btn:hover {
+    background-color: #333;
+    border: 1px solid #333;
+  }
