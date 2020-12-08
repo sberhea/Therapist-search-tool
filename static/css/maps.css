@@ -121,8 +121,7 @@ nav a:hover, nav button:hover {
 }
 
 .features {
-    margin: 4em auto;
-    padding: 1em;
+    margin: 1em auto;
     position: relative;
 }
   
@@ -132,6 +131,11 @@ nav a:hover, nav button:hover {
     font-weight: 700;
     margin-bottom: 20px;
     text-transform: uppercase;
+}
+.features .col-lg-4{
+    position: relative;
+    padding: 3em;
+    text-align: center;
 }
   
 .features img {
@@ -193,3 +197,40 @@ nav a:hover, nav button:hover {
     background-color: #333;
     border: 1px solid #333;
   }
+
+.one-therapist{
+    text-align: center;
+}
+
+.profile {
+    margin: 0rem;
+    position: relative;
+}
+
+.profile .logout-btn{
+    background-color:#434BDE;
+    border: 1px solid #434BDE;
+    color: #fff;
+    margin-top: 20px;
+    border-radius: 30px;
+    padding: .5rem;
+}
+
+.profile .logout-btn:hover{
+    /* background-color: #333;
+    border: 1px solid #333; */
+}
+
+.profile .col{
+    /* margin: 2em auto;
+    padding: 1em; */
+}
+
+.profile .more-btn{
+    background-color:#434BDE;
+    border: 1px solid #434BDE;
+    color: #fff;
+    margin-top: 20px;
+    margin-left: 60px;
+    border-radius: 8px;
+}

@@ -20,11 +20,12 @@ const therapistInfo = new google.maps.InfoWindow();
         //Define content of infoWindow
         const therapistInfoContent = (`
         <div class = "window-content">
-          <div class = "t-thumbnail">
-            <img src = ${therapist.pic}>
-          </div>
           
           <ul class="therapist-info">
+            <li><div class = "t-thumbnail">
+            <img src = ${therapist.pic}>
+            </div></li>
+            <br>
             <li><b>Name: </b>${therapist.name}</li>
             <li><b>Description: </b>${therapist.description}</li>
             <li><b>Call: </b>${therapist.phonenum}</li>

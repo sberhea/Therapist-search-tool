@@ -1,8 +1,24 @@
 {% extends 'base.html' %}
 {% block title %}Hello{% endblock %}
 {% block body %}
-  <p>{{ therapist.name }}</p>
-  <p><img src = "{{ therapist.pic }}"></p>
-  <p>{{therapist.description}}</p>
-  <p> Call {{therapist.name}} here: {{ therapist.phonenum}}</p>
-{% endblock %}
+<div class="container tlist">
+  <ul class="list-group">
+    <div class="image-parent">
+      <img src="{{ therapist.pic }}" class="rounded-circle" alt="lay">
+    </div>
+    <br>
+    <div class="flex-column">
+      <h4 class="therapist-name"> {{therapist.name}}</h4>
+      <p class="therapist-description"><i> {{therapist.description}} </i></p>
+      <p class="therapist-phonenum">Reach {{therapist.name}} at {{therapist.phonenum}}.</p>
+      <form class="bookmark-button", action= "/bookmark", method= "POST">
+        <button class="add-bookmark" id="btn">Bookmark</button>
+      </form>
+      <br>
+    </div>
+  </ul>
+</div> 
+
+
+
+  {% endblock %}

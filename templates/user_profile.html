@@ -1,29 +1,42 @@
 {% extends 'base.html' %}
 {% block title %}My Profile{% endblock %}
 {% block body %}
-  <div class="container profile">
-    <div class="row">
-      
-      <div class="col-lg-4 col-md-4 col-sm-12">
-        <h3 class="feature-title">Welcome to your profile!</h3>
-        <!-- <p><a href="/my-bookmarks/{{ user_id }}">Click here</a></p> -->
-        <img src="../static/img/bw-flowereyes.jpg" class="img-fluid">
-      </div>
-      
-      <div class="col-lg-4 col-md-4 col-sm-12">
-        <h3 class="feature-title">Your Faved Therapists</h3>
-        {% for b in bookmark_list %}
-                <li><a href='/therapists/{{ b.therapist_id }}'> {{ b.name }} </a></li>
-        {% endfor %}
-      </div>
-      
-      <div class="col-lg-4 col-md-4 col-sm-12">
-        <h3 class="feature-title">Sign out</h3>
-        <form action="/logout" method="POST"><button>Sign Out</button></form>
+  <div class="container-fluid profile">
+      <div class="row">
+        
+        <div class="col-lg-8 col-md-4 col-sm-12">
+          <br>
+          <img src="../static/img/bw-flowereyes.jpg" class="img-fluid">
+          <!-- <div class="overlay"></div>
+          <div class="description">
+          <h1>Welcome to your profile!</h1>
+          </div> -->
+        </div>
+
+        <div class = "bookmark-list">
+          
+          <div class="col offset-3">
+            <br>
+            <h3 class="feature-title">Your Faved Therapists</h3>
+            {% for b in bookmark_list %}
+                    <p><form action="/therapists/{{ b.therapist_id }}"><i class="far fa-heart"></i> {{ b.name }} <button class="more-btn"> See more </a></button></form></p>
+            {% endfor %}
+          </div>
+        </div>
+
+        
       </div>
     
-    </div>
+      <div class="row">
+      
+        <div class="col-lg-4 col-md-4 col-sm-12">
+          <!-- <h3 class="feature-title">Sign out</h3> -->
+          <form action="/logout" method="POST"><button class="logout-btn">Sign Out</button></form>
+        </div>
+      </div>
     
+  </div>
+
   </div>
     <!-- <div class="container features">
   <div class="row">
